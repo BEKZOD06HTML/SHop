@@ -1,0 +1,63 @@
+.like-container {
+    padding: 20px;
+    background: #f5f7fa;
+    min-height: 100vh;
+  }
+  
+  .like-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .like-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .like-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  
+  .buy-button, .remove-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition:  all .3s ease;
+  }
+  
+  .buy-button {
+    background: #61dafb;
+    color: white;
+  }
+  
+  .buy-button:hover {
+    background: #0056b3;
+  }
+  
+  .remove-button {
+    background: #ff4b5c;
+    color: white;
+    width: 50px;
+    height: 40px;
+    margin-left: 10px;
+  }
+  
+  .remove-button:hover {
+    background: #cc0000;
+  }
