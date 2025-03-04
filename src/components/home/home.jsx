@@ -17,12 +17,12 @@ const Home = () => {
           <p> <b>Price:</b>{product.price} $</p>
           
           <button onClick={() => addToLike(product)}>
-            {isLiked(product.id) ? '💔 Unlike' : '❤️ Like'}
+            {isLiked(product.id) ? <img src="./assets/icon/like.png" alt="" /> : <img src="./assets/icon/unlike.png" alt="" />}
           </button>
 
       
           <button onClick={() => addToCart(product)}>
-            {isInCart(product.id) ? '✔️ In Cart' : '🛒 Add to Cart'}
+            {isInCart(product.id) ? '+' :  <img src="./assets/icon/delete.png" alt="" /> }
           </button>
         </div>
       ))}

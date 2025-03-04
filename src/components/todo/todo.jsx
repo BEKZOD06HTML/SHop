@@ -3,11 +3,13 @@ import useProductStore from '../../utils/store';
 import './todo.css';
 
 const Todo = () => {
-  const { cart, addToLike, removeProduct, addToCart } = useProductStore();
+  const { cart, addToLike, removeProduct, addToCart, likes } = useProductStore();
 
   const getTotalPrice = () => {
     return cart.reduce((total, product) => total + Number(product.price) * product.quantity, 0);
   };
+
+  const isLiked = (id) => likes.some((item) => item.id === id);
 
   return (
     <div className="todo-container">
@@ -15,7 +17,9 @@ const Todo = () => {
         <div className="cart-items">
           {cart.map((product) => (
             <div key={product.id} className="todo-item">
-              <img src="/trash-icon.png" alt="Delete" className="trash-icon" onClick={() => removeProduct(product.id)} />
+              {product.image && <img src={product.image} alt={product.name} className="product-image" />}
+
+           
               <div className="product-info">
                 <p><strong>Name:</strong> {product.name}</p>
                 <p><strong>Price:</strong> ${Number(product.price).toFixed(2)}</p>
@@ -26,8 +30,12 @@ const Todo = () => {
                 <span>{product.quantity}</span>
                 <button onClick={() => addToCart(product)}>+</button>
               </div>
-              <div><button className="like-button" onClick={() => addToLike(product)}>❤️</button>
-              <button className="remove-button" onClick={() => removeProduct(product.id)}>🗑️</button></div>
+              <div>
+                <button className="like-button" onClick={() => addToLike(product)}>
+                  {isLiked(product.id) ? <img src="./assets/icon/like.png" alt="" /> :<img src="./assets/icon/unlike.png" alt="" /> }
+                </button>
+                <button className="remove-button" onClick={() => removeProduct(product.id)}>  <img src="./assets/icon/delete.png" alt="" /></button>
+              </div>
             </div>
           ))}
         </div>

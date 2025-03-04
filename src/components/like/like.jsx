@@ -16,8 +16,8 @@ const Like = () => {
               <p><strong>Price:</strong> ${Number(product.price) ? Number(product.price).toFixed(2) : '0.00'}</p>
               <p><strong>Category:</strong> {product.category}</p>
             </div>
-            <button className="buy-button" onClick={() => addToCart(product)}>🛒 Buy</button>
-            <button className="remove-button" onClick={() => removeProduct(product.id)}>🗑️</button>
+            <button className="buy-button" onClick={() => addToCart(product)}> Buy</button>
+            <button className="remove-button" onClick={() => removeProduct(product.id)}>  <img src="./assets/icon/delete.png" alt="" /></button>
           </div>
         ))}
       </div>

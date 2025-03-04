@@ -14,17 +14,19 @@
     width: 300px;
   }
   
-  .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+
+  button img{
+    width: 20px;
+    height: 20px;
   }
-  
   .card img {
-    width: 100%;
     height: auto;
     border-radius: 12px;
   }
-  
+  img{
+    width: 100px;
+    height: 100px;
+  }
   .card button {
     margin: 10px 5px;
     padding: 12px 18px;
