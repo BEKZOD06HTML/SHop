@@ -1,36 +1,32 @@
 import React, { useState } from 'react';
-import './login.css';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import API from '../../utils/API';
-import { useNavigate, Navigate } from 'react-router-dom';
-
+import './login.css';
 const Login = () => {
   const [username, setUsername] = useState('');
-  const [pass, setPas] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  // Agar user allaqachon login qilgan bo'lsa, profilga yo'naltiradi
-  if (localStorage.getItem('accessToken')) {
-    return <Navigate to="/profile" />;
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await API.post('/auth/login', {
-        username: username,
-        password: pass,
-      });
-
-      if (res.status === 200) {
-        localStorage.setItem('accessToken', res.data.accessToken);
-        window.dispatchEvent(new Event('storage')); // Headerni yangilash
-        navigate('/profile');
-      }
-    } catch (error) {
+  const mutation = useMutation({
+    mutationFn: async ({ username, password }) => {
+      const res = await API.post('/auth/login', { username, password });
+      return res.data;
+    },
+    onSuccess: (data) => {
+      localStorage.setItem('accessToken', data.accessToken);
+      window.dispatchEvent(new Event('storage'));
+      navigate('/profile');
+    },
+    onError: (error) => {
+      alert(' ERROR: ' + error.message);
       console.error('Error:', error);
-      alert('Login yoki parol xato!');
-    }
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    mutation.mutate({ username, password });
   };
 
   return (
@@ -38,20 +34,22 @@ const Login = () => {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
           type="text"
           placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
         <input
-          value={pass}
-          onChange={(e) => setPas(e.target.value)}
           type="password"
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Submit</button>
+        <button type="submit" >
+          Login
+        </button>
       </form>
     </div>
   );

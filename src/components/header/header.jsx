@@ -32,7 +32,7 @@ const Header = () => {
       <NavLink to="/todo">
         Cart <span className="badge">{getCartCount()}</span>
       </NavLink>
-
+        <NavLink to="/products">product</NavLink>
       {isAuthenticated ? (
         <>
           <NavLink to="/korzina">Add Product</NavLink>
