@@ -1,15 +1,22 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './header.css';
 import useProductStore from '../../utils/store';
 
 const Header = () => {
   const { getLikeCount, getCartCount } = useProductStore();
-  const isAuthenticated = localStorage.getItem('accessToken');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    setIsAuthenticated(!!token);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
-    window.location.href = '/login';
+    setIsAuthenticated(false);
+    navigate('/login');
   };
 
   return (

@@ -22,6 +22,7 @@ const App = () => {
 
         {/* Notog'ri URL bo'lsa Home sahifasiga yo'naltir */}
         <Route path="*" element={<Navigate to="/" />} />
+        
       </Routes>
     </Router>
   );
