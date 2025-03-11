@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/header/header';
 import Home from './components/home/home';
 import Korzina from './components/korzina/korzina';
@@ -19,7 +19,9 @@ const App = () => {
         <Route path="/todo" element={<Todo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profil" element={<Profil />} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
+
+        {/* Notog'ri URL bo'lsa Home sahifasiga yo'naltir */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
