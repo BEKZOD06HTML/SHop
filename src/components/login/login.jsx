@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import './login.css';
 import API from '../../utils/API';
-import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [pass, setPas] = useState('');
   const navigate = useNavigate();
-if(localStorage.getItem("accessToken")){
- return <Navigate to="/profile"/>
-}
+
+  // Agar user allaqachon login qilgan bo'lsa, profilga yo'naltiradi
+  if (localStorage.getItem('accessToken')) {
+    return <Navigate to="/profile" />;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     try {
       const res = await API.post('/auth/login', {
@@ -23,7 +24,8 @@ if(localStorage.getItem("accessToken")){
 
       if (res.status === 200) {
         localStorage.setItem('accessToken', res.data.accessToken);
-        navigate('/profil');
+        window.dispatchEvent(new Event('storage')); // Headerni yangilash
+        navigate('/profile');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -33,6 +35,7 @@ if(localStorage.getItem("accessToken")){
 
   return (
     <div>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <input
           value={username}

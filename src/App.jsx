@@ -18,11 +18,10 @@ const App = () => {
         <Route path="/like" element={<Like />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profil" element={<Profil />} />
+        <Route path="/profile" element={<Profil />} />
 
-        {/* Notog'ri URL bo'lsa Home sahifasiga yo'naltir */}
+        {/* Noto'g'ri URL bo'lsa, Home sahifasiga yo'naltiradi */}
         <Route path="*" element={<Navigate to="/" />} />
-        
       </Routes>
     </Router>
   );

@@ -9,14 +9,16 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    setIsAuthenticated(!!token);
+    const checkAuth = () => setIsAuthenticated(!!localStorage.getItem('accessToken'));
+    checkAuth();
+    window.addEventListener('storage', checkAuth);
+    return () => window.removeEventListener('storage', checkAuth);
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
-    setIsAuthenticated(false);
-    navigate('/login');
+    window.dispatchEvent(new Event('storage'));
+    navigate('/login', { replace: true });
   };
 
   return (
@@ -34,7 +36,7 @@ const Header = () => {
       {isAuthenticated ? (
         <>
           <NavLink to="/korzina">Add Product</NavLink>
-          <NavLink to="/profil">Profil</NavLink>
+          <NavLink to="/profile">Profil</NavLink>
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
